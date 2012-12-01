@@ -1,0 +1,61 @@
+<!doctype html>
+<!-- Copything 2012 - Davide Alberani <da@erlug.linux.it>
+     Released under the terms of GNU GPL 3 or later.
+-->
+<html>
+  <head>
+    <title>Eolo 10 quota</title>
+    <style>
+    body {
+      min-width: 400px;
+      overflow-x: hidden;
+      background: #cbd9de;
+    }
+
+    .ajax_info {
+      background: url('loading.gif') no-repeat center center;
+      height: 40px;
+    }
+
+    .info_field {
+      font-weight: bold;
+    }
+
+    #info {
+      background: #99FF99;
+      text-align: center;
+    }
+
+    #warnings {
+      background: yellow;
+      text-align: center;
+    }
+
+    #errors {
+      background: red;
+      text-align: center;
+    }
+
+    </style>
+
+    <script src="popup.js"></script>
+  </head>
+  <body>
+  <div id="content">
+    <table>
+      <tr>
+        <td><span class="info_field">Daily traffic:</span></td>
+        <td><span id="traffic_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> MB / <span id="traffic_total" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> MB (<span id="traffic_left_percent" class="ajax_info"></span>%)</td>
+      </tr>
+      <tr>
+        <td><span class="info_field">VoIP credit:</span></td>
+        <td><span id="voice_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> euro.</td>
+      </tr>
+    </table>
+  </div>
+  <div id="info"></div>
+  <div id="warnings"></div>
+  <div id="errors"></div>
+  </body>
+</html>
+
