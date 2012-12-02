@@ -50,18 +50,17 @@ function update_fields(resp) {
 	if (last_check) {
 		var check_date = new Date();
 		check_date.setTime(last_check);
-		add_info('Last update: ' + check_date.toLocaleString(), 'info');
+		add_info(chrome.i18n.getMessage('lastUpdate') + ': ' + check_date.toLocaleString(), 'info');
 	}
-
-	if (t_percent > 80) {
-		if (t_percent >= 100) {
-			add_info("You are over your daily traffic quota", 'warnings');
-		} else {
-			add_info("You are near your daily traffic quota", 'warnings');
-		}
+	if (t_percent >= 100) {
+		add_info(chrome.i18n.getMessage("overQuota"), 'warnings');
+	} else if (t_percent > 80) {
+		add_info(chrome.i18n.getMessage("nearQuota"), 'warnings');
 	}
-	if (v_left < 5) {
-		add_info("You don't have much VoIP credit left", 'warnings');
+	if (v_left <= 0) {
+		add_info(chrome.i18n.getMessage("noVoipCredit"), "warnings");
+	} else if (v_left < 5) {
+		add_info(chrome.i18n.getMessage("littleVoipCredit"), 'warnings');
 	}
 }
 
@@ -77,11 +76,11 @@ function fetch_data() {
 				localStorage['last_data'] = JSON.stringify(data);
 				update_fields(data);
 			} else {
-				add_info("Unable to fetch data. Maybe you're not connected with NGI Eolo 10?", 'errors');
+				add_info(chrome.i18n.getMessage("wrongsData", [data && data.response && data.response['status']]), 'errors');
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			add_info("Unable to fetch data. textStatus: " + textStatus + '; errorThrown: ' + errorThrown, 'errors');
+			add_info(chrome.i18n.getMessage("connectionError", [textStatus, errorThrown]), 'errors');
 		}
 	});
 }

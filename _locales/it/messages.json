@@ -4,5 +4,49 @@
   },
   "appDesc": {
     "message": "Mostra le soglie di una connessione NGI Eolo 10 ed avvisa l'utente quando stanno per essere raggiunte."
+  },
+  "popupTitle": {
+    "message": "Soglie di Eolo 10"
+  },
+  "dailyTraffic": {
+    "message": "Traffico gionaliero"
+  },
+  "MB": {
+    "message": "MB"
+  },
+  "voipCredit": {
+    "message": "Credito VoIP"
+  },
+  "euros": {
+    "message": "euro"
+  },
+  "lastUpdate": {
+    "message": "Ultimo aggiornamento"
+  },
+  "overQuota": {
+    "message": "Hai superato la soglia giornaliera di traffico"
+  },
+  "nearQuota": {
+    "message": "Ti stai avvicinando alla soglia di traffico giornaliero"
+  },
+  "noVoipCredit": {
+    "message": "Non hai credito VoIP residuo"
+  },
+  "littleVoipCredit": {
+    "message": "Hai poco credito VoIP residuo"
+  },
+  "wrongsData": {
+    "message": "Dati errati ricevuti. Forse non sei connesso con NGI Eolo 10? Server status: $status$",
+    "placeholders": {
+      "status": {"content": "$1", "example": "401"}
+    }
+  },
+  "connectionError": {
+    "message": "Impossibile recuperare le informazioni. textStatus: $textStatus$; errorThrown: $errorThrown$",
+    "placeholders": {
+      "textStatus": {"content": "$1", "example": "Server error"},
+      "errorThrown": {"content": "$2", "example": "[Object]"}
+    }
   }
+
 }

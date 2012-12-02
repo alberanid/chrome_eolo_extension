@@ -4,7 +4,7 @@
 -->
 <html>
   <head>
-    <title>Eolo 10 quota</title>
+    <title i18n="popupTitle"></title>
     <script src="./js/jquery.min.js"></script>
     <script src="./js/helpers.js"></script>
     <script src="popup.js"></script>
@@ -45,12 +45,12 @@
   <div id="content">
     <table>
       <tr>
-        <td><span class="info_field">Daily traffic:</span></td>
-        <td><span id="traffic_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> MB / <span id="traffic_total" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> MB (<span id="traffic_left_percent" class="ajax_info"></span>%)</td>
+        <td><span class="info_field" i18n="dailyTraffic"></span>:</td>
+	<td><span id="traffic_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="MB"></span> / <span id="traffic_total" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="MB"></span> (<span id="traffic_left_percent" class="ajax_info"></span>%)</td>
       </tr>
       <tr>
-        <td><span class="info_field">VoIP credit:</span></td>
-        <td><span id="voice_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> euro.</td>
+        <td><span class="info_field" i18n="voipCredit"></span>:</td>
+	<td><span id="voice_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="euros"></span>.</td>
       </tr>
     </table>
   </div>

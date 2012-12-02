@@ -14,5 +14,52 @@
   "dailyTraffic": {
     "message": "Daily traffic",
     "description": "Label befor the used and total amount of data used"
+  },
+  "MB": {
+    "message": "MB",
+    "description": "Megabytes"
+  },
+  "voipCredit": {
+    "message": "VoIP credit",
+    "description": "Phone credit left"
+  },
+  "euros": {
+    "message": "euros",
+    "description": "Currency unit"
+  },
+  "lastUpdate": {
+    "message": "Last update",
+    "description": "Last time the information were updated"
+  },
+  "overQuota": {
+    "message": "You are over your daily traffic quota",
+    "description": "Warning shown when the user is over the daily quota"
+  },
+  "nearQuota": {
+    "message": "You are near your daily traffic quota",
+    "description": "Warning shown when the user is near the daily quota"
+  },
+  "noVoipCredit": {
+    "message": "You don't have VoIP credit left",
+    "description": "Warning shown when the user has no VoIP credit left"
+  },
+  "littleVoipCredit": {
+    "message": "You don't have much VoIP credit left",
+    "description": "Warning shown when the user is near zero VoIP credit left"
+  },
+  "wrongsData": {
+    "message": "Wrong data received Maybe you're not connected with NGI Eolo 10? Server status: $status$",
+    "description": "The json was fetched, but it's wrong",
+    "placeholders": {
+      "status": {"content": "$1", "example": "401"}
+    }
+  },
+  "connectionError": {
+    "message": "Unable to fetch data. textStatus: $textStatus$; errorThrown: $errorThrown$",
+    "description": "Communication error",
+    "placeholders": {
+      "textStatus": {"content": "$1", "example": "Server error"},
+      "errorThrown": {"content": "$2", "example": "[Object]"}
+    }
   }
 }
