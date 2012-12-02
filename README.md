@@ -6,6 +6,14 @@ This unofficial Chrome extension allow NGI Eolo 10 users to monitor their traffi
 It's available on the Chrome store: https://chrome.google.com/webstore/detail/ngi-eolo-10-quotas/bnanndnbkeednbkmmpceidkphbcmkomn
 
 
+TODO
+====
+
+Possible improvements:
+ - configuration page (define warning quotas, change colors and so on).
+ - periodic check in background using chrome.alarms and show alerts when quotas are about to be exceeded.
+
+
 Author
 ======
 
