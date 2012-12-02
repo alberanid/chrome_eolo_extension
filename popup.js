@@ -3,44 +3,46 @@
  * Released under the terms of GNU GPL 3 or later.
 */
 
+var force_remote = false;
+var ten_minutes = 1000 * 60 * 10;
+
 function add_info(text, level) {
-	var field = document.getElementById(level || 'info');
-	if (field.innerHTML) {
-		field.innerHTML += '<br />';
+	var field = $('#' + (level || 'info'));
+	if (field.html()) {
+		field.append('<br />');
 	}
-	field.innerHTML += text;
+	field.append(text);
 }
 
 function update_fields(resp) {
-	
-	var traffic_left = document.getElementById('traffic_left');
-	var traffic_left_percent = document.getElementById('traffic_left_percent');
-	var traffic_total = document.getElementById('traffic_total');
-	var info = document.getElementById('info');
-	var warnings = document.getElementById('warnings');
-	var errors = document.getElementById('errors');
-	traffic_left.style.background = '#cbd9de';
-	traffic_left_percent.style.background = '#cbd9de';
-	traffic_total.style.background = '#cbd9de';
+	var traffic_left = $('#traffic_left');
+	var traffic_left_percent = $('#traffic_left_percent');
+	var traffic_total = $('#traffic_total');
+	var voice_left = $('#voice_left');
+	var info = $('#info');
+	var warnings = $('#warnings');
+	var errors = $('#errors');
+	traffic_left.css({'background-color': '#cbd9de', 'background-image': 'none'});
+	traffic_left_percent.css({'background-color': '#cbd9de', 'background-image': 'none'});
+	traffic_total.css({'background-color': '#cbd9de', 'background-image': 'none'});
+	voice_left.css({'background-color': '#cbd9de', 'background-image': 'none'});
 	if (resp.data) {
 		var t_left = resp.data.used / 1024;
 		var t_total = resp.data.quota / 1024;
 		var t_percent = (resp.data.used / resp.data.quota) * 100;
-		traffic_left.innerText = t_left.toFixed(2);
-		traffic_left_percent.innerText = t_percent.toFixed(2);
-		traffic_total.innerText = t_total.toFixed(2);
+		traffic_left.text(t_left.toFixed(2));
+		traffic_left_percent.text(t_percent.toFixed(2));
+		traffic_total.text(t_total.toFixed(2));
 	} else {
-		traffic_left.innerText = '-';
-		traffic_left_percent.innerText = '-';
-		traffic_total.innerText = '-';
+		traffic_left.text('-');
+		traffic_left_percent.text('-');
+		traffic_total.text('-');
 	}
-	var voice_left = document.getElementById('voice_left');
-	voice_left.style.background = '#cbd9de';
 	if (resp.voice) {
 		var v_left = resp.voice.credit;
-		voice_left.innerText = v_left.toFixed(2);
+		voice_left.text(v_left.toFixed(2));
 	} else {
-		voice_left.innerText = '-';
+		voice_left.text('-');
 	}
 
 	// Show information, warnings and errors.
@@ -61,33 +63,32 @@ function update_fields(resp) {
 	if (v_left < 5) {
 		add_info("You don't have much VoIP credit left", 'warnings');
 	}
-
 }
 
 
 function fetch_data() {
-	var req = new XMLHttpRequest();
-	req.open('GET', 'https://care.ngi.it/ws/ws.asp?a=get.quota', true);
-	req.onreadystatechange = function() {
-		if (req.readyState != 4) {
-			return;
+	$.ajax({
+		url: 'https://care.ngi.it/ws/ws.asp',
+		data: {a: 'get.quota'},
+		dataType: 'json',
+		timeout: 10000,
+		success: function(data, textStatus, jqXHR) {
+			if (data && data.response && data.response['status'] == 200) {
+				localStorage['last_data'] = JSON.stringify(data);
+				update_fields(data);
+			} else {
+				add_info("Unable to fetch data. Maybe you're not connected with NGI Eolo 10?", 'errors');
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			add_info("Unable to fetch data. textStatus: " + textStatus + '; errorThrown: ' + errorThrown, 'errors');
 		}
-		var resp = JSON.parse(req.responseText);
-		if (resp && resp.response && resp.response['status'] == 200) {
-			localStorage['last_data'] = req.responseText;
-			update_fields(resp);
-		} else {
-			add_info("Unable to fetch data. Maybe you're not connected with NGI Eolo 10?", 'errors');
-		}
-	};
-	req.send(null);
+	});
 }
 
 
-var force_remote = false;
-var ten_minutes = 1000 * 60 * 10;
-
 function run() {
+	localizePage();
 	var last_check = localStorage['last_check'];
 	var last_data = localStorage['last_data'];
 	var now = new Date().getTime();

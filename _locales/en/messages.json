@@ -1,0 +1,18 @@
+{
+  "appName": {
+    "message": "NGI Eolo 10 quotas",
+    "description": "The title of the application, displayed in the web store"
+  },
+  "appDesc": {
+    "message": "Display NGI Eolo 10 quotas and alert the user when they are running out.", 
+    "description": "The description of the application, displayed in the web store"
+  },
+  "popupTitle": {
+    "message": "Eolo 10 quota",
+    "description": "Title of the popup window"
+  },
+  "dailyTraffic": {
+    "message": "Daily traffic",
+    "description": "Label befor the used and total amount of data used"
+  }
+}

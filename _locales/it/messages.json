@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "Soglie di NGI Eolo 10"
+  },
+  "appDesc": {
+    "message": "Mostra le soglie di una connessione NGI Eolo 10 ed avvisa l'utente quando stanno per essere raggiunte."
+  }
+}
