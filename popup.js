@@ -14,14 +14,18 @@ function add_info(text, level) {
 	field.append(text);
 }
 
+function clear_info() {
+	$('#info').html("");
+	$('#warnings').html("");
+	$('#errors').html("");
+}
+
+
 function update_fields(resp) {
 	var traffic_left = $('#traffic_left');
 	var traffic_left_percent = $('#traffic_left_percent');
 	var traffic_total = $('#traffic_total');
 	var voice_left = $('#voice_left');
-	var info = $('#info');
-	var warnings = $('#warnings');
-	var errors = $('#errors');
 	traffic_left.css({'background-color': '#cbd9de', 'background-image': 'none'});
 	traffic_left_percent.css({'background-color': '#cbd9de', 'background-image': 'none'});
 	traffic_total.css({'background-color': '#cbd9de', 'background-image': 'none'});
@@ -44,7 +48,12 @@ function update_fields(resp) {
 	} else {
 		voice_left.text('-');
 	}
+	update_messages(t_percent, v_left);
+}
 
+
+function update_messages(t_percent, v_left) {
+	clear_info();
 	// Show information, warnings and errors.
 	var last_check = localStorage['last_check'];
 	if (last_check) {
@@ -73,31 +82,38 @@ function fetch_data() {
 		timeout: 10000,
 		success: function(data, textStatus, jqXHR) {
 			if (data && data.response && data.response['status'] == 200) {
+				localStorage['last_check'] = new Date().getTime();
 				localStorage['last_data'] = JSON.stringify(data);
 				update_fields(data);
 			} else {
+				update_fields({});
 				add_info(chrome.i18n.getMessage("wrongsData", [data && data.response && data.response['status']]), 'errors');
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
+			update_fields({});
 			add_info(chrome.i18n.getMessage("connectionError", [textStatus, errorThrown]), 'errors');
 		}
 	});
 }
 
 
-function run() {
-	localizePage();
+function run_check(force) {
 	var last_check = localStorage['last_check'];
 	var last_data = localStorage['last_data'];
 	var now = new Date().getTime();
-	if (last_check && (now - last_check < ten_minutes) && last_data && !force_remote) {
+	if (last_check && (now - last_check < ten_minutes) && last_data &&
+			!(force || force_remote)) {
 		update_fields(JSON.parse(last_data));
 		return;
 	}
-	localStorage['last_check'] = now;
 	fetch_data();
 }
 
-document.addEventListener('DOMContentLoaded', run);
+function open_popup() {
+	localizePage();
+	run_check();
+}
+
+document.addEventListener('DOMContentLoaded', open_popup);
 
