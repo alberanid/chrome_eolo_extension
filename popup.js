@@ -5,6 +5,8 @@
 
 var force_remote = false;
 var ten_minutes = 1000 * 60 * 10;
+var _spaces = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
 
 function add_info(text, level) {
 	var field = $('#' + (level || 'info'));
@@ -14,10 +16,17 @@ function add_info(text, level) {
 	field.append(text);
 }
 
+
 function clear_info() {
 	$('#info').html("");
 	$('#warnings').html("");
 	$('#errors').html("");
+}
+
+
+function show_spinners() {
+	$('.ajax_info').html(_spaces);
+	$('.ajax_info').css({'background-image': 'url(images/loading.gif)'});
 }
 
 
@@ -26,10 +35,10 @@ function update_fields(resp) {
 	var traffic_left_percent = $('#traffic_left_percent');
 	var traffic_total = $('#traffic_total');
 	var voice_left = $('#voice_left');
-	traffic_left.css({'background-color': '#cbd9de', 'background-image': 'none'});
-	traffic_left_percent.css({'background-color': '#cbd9de', 'background-image': 'none'});
-	traffic_total.css({'background-color': '#cbd9de', 'background-image': 'none'});
-	voice_left.css({'background-color': '#cbd9de', 'background-image': 'none'});
+	traffic_left.css({'background-image': 'none'});
+	traffic_left_percent.css({'background-image': 'none'});
+	traffic_total.css({'background-image': 'none'});
+	voice_left.css({'background-image': 'none'});
 	if (resp.data) {
 		var t_left = resp.data.used / 1024;
 		var t_total = resp.data.quota / 1024;
@@ -99,6 +108,7 @@ function fetch_data() {
 
 
 function run_check(force) {
+	show_spinners();
 	var last_check = localStorage['last_check'];
 	var last_data = localStorage['last_data'];
 	var now = new Date().getTime();
@@ -112,8 +122,9 @@ function run_check(force) {
 
 function open_popup() {
 	localizePage();
+	$('#refresh').click(function() { run_check(true); });
 	run_check();
 }
 
-document.addEventListener('DOMContentLoaded', open_popup);
+$(document).ready(open_popup);
 

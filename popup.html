@@ -25,7 +25,7 @@
     }
 
     #info {
-      background: #99FF99;
+      background: #99ff99;
       text-align: center;
     }
 
@@ -39,10 +39,27 @@
       text-align: center;
     }
 
+    #title {
+      font-size: 150%;
+      font-weight: bold;
+    }
+
+    #refresh {
+      background: url('images/refresh16x16.png') no-repeat center center;
+      height: 16px;
+      width: 16px;
+      float: right;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
     </style>
   </head>
   <body>
-  <h3 i18n="popupTitle"></h3>
+  <div class="header">
+    <span id="title" i18n="popupTitle"></span><span id="refresh" alt="Refresh" title="Refresh">&nbsp;&nbsp;&nbsp;</span>
+  </div>
+  <br />
   <div id="content">
     <table>
       <tr>
