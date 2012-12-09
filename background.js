@@ -51,14 +51,14 @@ function update_notifications(data) {
 /* Things to run every CHECK_INTERVAL minutes. */
 function at_alarm(alarm) {
 	if (alarm.name != 'eoloAlarm') { return; }
-	run_check({successCb: update_notifications });
+	run_check({successCb: update_notifications});
 	return true;
 }
 
 
 /* Initialize the alarms. */
 function at_boot(details) {
-	reset_flags(null);
+	init_conf();
 	chrome.alarms.create('eoloAlarm', {delayInMinutes: 5, periodInMinutes: CHECK_INTERVAL});
 	chrome.alarms.onAlarm.addListener(at_alarm);
 	var current_date = new Date();

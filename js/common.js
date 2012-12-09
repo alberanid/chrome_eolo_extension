@@ -59,12 +59,17 @@ function run_check(conf) {
 }
 
 
-/* Reset global flags and options. */
+/* Reset notification flags. */
 function reset_flags(alarm) {
 	localStorage['overQuotaNotified'] = false;
 	localStorage['nearQuotaNotified'] = false;
 	localStorage['noVoipCreditNotified'] = false;
 	localStorage['littleVoipCreditNotified'] = false;
+}
+
+
+/* Initialize configuration. */
+function init_conf() {
 	localStorage['lowDataPercentQuota'] = localStorage['lowDataPercentQuota'] || DEFAULT_LOW_DATA_PERCENT;
 	localStorage['lowVoiceCredit'] = localStorage['lowVoiceCredit'] || DEFAULT_LOW_VOICE_CREDIT;
 }
