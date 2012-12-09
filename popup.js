@@ -1,11 +1,15 @@
 /*
- * Copything 2012 - Davide Alberani <da@erlug.linux.it>
+ * Copyright 2012 - Davide Alberani <da@erlug.linux.it>
  * Released under the terms of GNU GPL 3 or later.
+ *
+ * https://github.com/alberanid/chrome_eolo_extension
 */
+
 
 var _spaces = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
 
+/* Add and information row to one of info/warnings/errors divs. */
 function add_info(text, level) {
 	var field = $('#' + (level || 'info'));
 	if (field.html()) {
@@ -15,6 +19,7 @@ function add_info(text, level) {
 }
 
 
+/* Reset the content of all the info/warnings/errors divs. */
 function clear_info() {
 	$('#info').html("");
 	$('#warnings').html("");
@@ -22,12 +27,14 @@ function clear_info() {
 }
 
 
+/* Replace information with a spinner. */
 function show_spinners() {
 	$('.ajax_info').html(_spaces);
 	$('.ajax_info').css({'background-image': 'url(images/loading.gif)'});
 }
 
 
+/* Show collected data. */
 function update_fields(data) {
 	$('.ajax_info').css({'background-image': 'none'});
 	var traffic_left = $('#traffic_left');
@@ -68,8 +75,8 @@ function update_fields(data) {
 }
 
 
+/* Show needed messages. */
 function update_messages(t_percent, v_left, success) {
-	// Show information, warnings and errors.
 	clear_info();
 	var last_check = localStorage['last_check'];
 	if (last_check) {
@@ -93,6 +100,7 @@ function update_messages(t_percent, v_left, success) {
 }
 
 
+/* Things to do when the popup is shown. */
 function open_popup() {
 	localizePage();
 	$('#refresh').click(function() { run_check({successCb: update_fields, force: true}); });

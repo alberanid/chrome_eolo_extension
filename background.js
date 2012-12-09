@@ -1,55 +1,11 @@
 /*
- * Copything 2012 - Davide Alberani <da@erlug.linux.it>
+ * Copyright 2012 - Davide Alberani <da@erlug.linux.it>
  * Released under the terms of GNU GPL 3 or later.
+ *
+ * https://github.com/alberanid/chrome_eolo_extension
 */
 
-
-DEFAULT_LOW_DATA_PERCENT = 20;
-DEFAULT_LOW_VOICE_CREDIT = 5;
-
-var FORCE_REMOTE = false;
-var TEN_MINUTES_MS = 1000 * 60 * 10;
-
-function fetch_data(successCb, errorCb) {
-	$.ajax({
-		url: 'https://care.ngi.it/ws/ws.asp',
-		data: {a: 'get.quota'},
-		dataType: 'json',
-		timeout: 10000,
-		success: function(data, textStatus, jqXHR) {
-			if (data && data.response && data.response['status'] == 200) {
-				localStorage['last_check'] = new Date().getTime();
-				localStorage['last_data'] = JSON.stringify(data);
-				successCb && successCb(data);
-				//chrome.extension.sendMessage('dataReceived', data)
-			} else {
-				errorCb && errorCb('dataError',
-					chrome.i18n.getMessage("wrongsData", [data && data.response && data.response['status']]));
-			}
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			errorCb && errorCb('networkError', chrome.i18n.getMessage("connectionError", [textStatus, errorThrown]));
-		}
-	});
-}
-
-
-function run_check(conf) {
-	if (!conf) {
-		conf = {};
-	}
-	var last_check = localStorage['last_check'];
-	var last_data = localStorage['last_data'];
-	var now = new Date().getTime();
-	if (last_check && (now - last_check < TEN_MINUTES_MS) && last_data &&
-			!(conf.force || FORCE_REMOTE)) {
-		conf.successCb && conf.successCb();
-		return;
-	}
-	fetch_data(conf.successCb, conf.errorCb);
-}
-
-
+/* Show a notification, if not already done. */
 function show_notification(msg, msg_type) {
 	if (localStorage[msg_type + 'Notified'] === 'true') {
 		return;
@@ -63,6 +19,7 @@ function show_notification(msg, msg_type) {
 }
 
 
+/* Check if we have to issue a notification. */
 function update_notifications(data) {
 	resp = localStorage['last_data'];
 	if (resp) {
@@ -91,27 +48,25 @@ function update_notifications(data) {
 }
 
 
+/* Things to run every CHECK_INTERVAL minutes. */
 function at_alarm(alarm) {
 	if (alarm.name != 'eoloAlarm') { return; }
 	run_check({successCb: update_notifications });
 }
 
 
-function reset_flags() {
-	localStorage['overQuotaNotified'] = false;
-	localStorage['nearQuotaNotified'] = false;
-	localStorage['noVoipCreditNotified'] = false;
-	localStorage['littleVoipCreditNotified'] = false;
-	localStorage['lowDataPercentQuota'] = localStorage['lowDataPercentQuota'] || DEFAULT_LOW_DATA_PERCENT;
-	localStorage['lowVoiceCredit'] = localStorage['lowVoiceCredit'] || DEFAULT_LOW_VOICE_CREDIT;
-}
-
-
+/* Initialize the alarms. */
 function at_boot(details) {
-	reset_flags();
-	chrome.alarms.create('eoloAlarm', {delayInMinutes: 0.1, periodInMinutes: 10});
+	reset_flags(null);
+	chrome.alarms.create('eoloAlarm', {delayInMinutes: 0.1, periodInMinutes: CHECK_INTERVAL});
 	chrome.alarms.onAlarm.addListener(at_alarm);
+	var current_date = new Date();
+	var midnight = new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate()+1, 0, 0, 0);
+	chrome.alarms.create('atMidnight', {when: midnight.getTime(), periodInMinutes: TWENTYFOUR_HOURS});
+	chrome.alarms.onAlarm.addListener(reset_flags);
 }
+
 
 document.addEventListener('DOMContentLoaded', at_boot);
+chrome.runtime.onInstalled.addListener(at_boot);
 
