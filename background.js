@@ -52,6 +52,7 @@ function update_notifications(data) {
 function at_alarm(alarm) {
 	if (alarm.name != 'eoloAlarm') { return; }
 	run_check({successCb: update_notifications });
+	return true;
 }
 
 
