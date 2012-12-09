@@ -12,8 +12,18 @@
     "default_icon": "images/icon128.png",
     "default_popup": "popup.html"
   },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
   "permissions": [
+    "alarms",
+    "background",
+    "notifications",
     "https://care.ngi.it/"
+  ],
+  "web_accessible_resources": [
+    "images/icon48.png"
   ],
   "manifest_version": 2
 }

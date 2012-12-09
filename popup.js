@@ -30,7 +30,7 @@ function show_spinners() {
 }
 
 
-function update_fields(resp) {
+function update_fields() {
 	$('.ajax_info').css({'background-image': 'none'});
 	var traffic_left = $('#traffic_left');
 	var traffic_left_percent = $('#traffic_left_percent');
@@ -39,6 +39,12 @@ function update_fields(resp) {
 	var success = true;
 	var t_percent = null;
 	var v_left = null;
+	var resp = localStorage['last_data'];
+	if (resp) {
+		resp = JSON.parse(resp);
+	} else {
+		resp = {};
+	}
 	if (resp.data) {
 		var t_left = resp.data.used / 1024;
 		var t_total = resp.data.quota / 1024;
@@ -89,7 +95,7 @@ function update_messages(t_percent, v_left, success) {
 }
 
 
-function fetch_data() {
+function fetch_data(cb) {
 	$.ajax({
 		url: 'https://care.ngi.it/ws/ws.asp',
 		data: {a: 'get.quota'},
@@ -99,38 +105,39 @@ function fetch_data() {
 			if (data && data.response && data.response['status'] == 200) {
 				localStorage['last_check'] = new Date().getTime();
 				localStorage['last_data'] = JSON.stringify(data);
-				update_fields(data);
+				alert(cb);
+				cb && cb();
 			} else {
-				update_fields(localStorage['last_data'] || {});
+				cb && cb();
 				add_info(chrome.i18n.getMessage("wrongsData", [data && data.response && data.response['status']]), 'errors');
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			update_fields(localStorage['last_data'] || {});
+			cb && cb();
 			add_info(chrome.i18n.getMessage("connectionError", [textStatus, errorThrown]), 'errors');
 		}
 	});
 }
 
 
-function run_check(force) {
-	show_spinners();
+function run_check(cb, force) {
 	var last_check = localStorage['last_check'];
 	var last_data = localStorage['last_data'];
 	var now = new Date().getTime();
 	if (last_check && (now - last_check < ten_minutes) && last_data &&
 			!(force || force_remote)) {
-		update_fields(JSON.parse(last_data));
+		cb && cb();
 		return;
 	}
-	fetch_data();
+	fetch_data(cb);
 }
 
 
 function open_popup() {
 	localizePage();
-	$('#refresh').click(function() { run_check(true); });
-	run_check();
+	$('#refresh').click(function() { run_check(update_fields, true); });
+	show_spinners();
+	run_check(update_fields);
 }
 
 
