@@ -3,8 +3,6 @@
  * Released under the terms of GNU GPL 3 or later.
 */
 
-var force_remote = false;
-var ten_minutes = 1000 * 60 * 10;
 var _spaces = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
 
@@ -30,7 +28,7 @@ function show_spinners() {
 }
 
 
-function update_fields() {
+function update_fields(data) {
 	$('.ajax_info').css({'background-image': 'none'});
 	var traffic_left = $('#traffic_left');
 	var traffic_left_percent = $('#traffic_left_percent');
@@ -43,7 +41,7 @@ function update_fields() {
 	if (resp) {
 		resp = JSON.parse(resp);
 	} else {
-		resp = {};
+		resp = data;
 	}
 	if (resp.data) {
 		var t_left = resp.data.used / 1024;
@@ -83,61 +81,23 @@ function update_messages(t_percent, v_left, success) {
 	}
 	else if (t_percent >= 100) {
 		add_info(chrome.i18n.getMessage("overQuota"), 'warnings');
-	} else if (t_percent > 80) {
+	} else if (t_percent > (100 - localStorage['lowDataPercentQuota'])) {
 		add_info(chrome.i18n.getMessage("nearQuota"), 'warnings');
 	}
 	if (v_left === null) {
 	} else if (v_left <= 0) {
 		add_info(chrome.i18n.getMessage("noVoipCredit"), "warnings");
-	} else if (v_left < 5) {
+	} else if (v_left < localStorage['lowVoiceCredit']) {
 		add_info(chrome.i18n.getMessage("littleVoipCredit"), 'warnings');
 	}
 }
 
 
-function fetch_data(cb) {
-	$.ajax({
-		url: 'https://care.ngi.it/ws/ws.asp',
-		data: {a: 'get.quota'},
-		dataType: 'json',
-		timeout: 10000,
-		success: function(data, textStatus, jqXHR) {
-			if (data && data.response && data.response['status'] == 200) {
-				localStorage['last_check'] = new Date().getTime();
-				localStorage['last_data'] = JSON.stringify(data);
-				alert(cb);
-				cb && cb();
-			} else {
-				cb && cb();
-				add_info(chrome.i18n.getMessage("wrongsData", [data && data.response && data.response['status']]), 'errors');
-			}
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			cb && cb();
-			add_info(chrome.i18n.getMessage("connectionError", [textStatus, errorThrown]), 'errors');
-		}
-	});
-}
-
-
-function run_check(cb, force) {
-	var last_check = localStorage['last_check'];
-	var last_data = localStorage['last_data'];
-	var now = new Date().getTime();
-	if (last_check && (now - last_check < ten_minutes) && last_data &&
-			!(force || force_remote)) {
-		cb && cb();
-		return;
-	}
-	fetch_data(cb);
-}
-
-
 function open_popup() {
 	localizePage();
-	$('#refresh').click(function() { run_check(update_fields, true); });
+	$('#refresh').click(function() { run_check({successCb: update_fields, force: true}); });
 	show_spinners();
-	run_check(update_fields);
+	run_check({successCb: update_fields, errorCb: function(error, msg) { add_info(msg, 'errors'); }});
 }
 
 
