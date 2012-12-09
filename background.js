@@ -58,7 +58,7 @@ function at_alarm(alarm) {
 /* Initialize the alarms. */
 function at_boot(details) {
 	reset_flags(null);
-	chrome.alarms.create('eoloAlarm', {delayInMinutes: 1, periodInMinutes: CHECK_INTERVAL});
+	chrome.alarms.create('eoloAlarm', {delayInMinutes: 5, periodInMinutes: CHECK_INTERVAL});
 	chrome.alarms.onAlarm.addListener(at_alarm);
 	var current_date = new Date();
 	var midnight = new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate()+1, 0, 0, 0);
