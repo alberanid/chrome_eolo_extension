@@ -103,9 +103,13 @@ function update_messages(t_percent, v_left, success) {
 /* Things to do when the popup is shown. */
 function open_popup() {
 	localizePage();
-	$('#refresh').click(function() { run_check({successCb: update_fields, force: true}); });
+	var _errorCb = function(error, msg) { add_info(msg, 'errors'); };
+	$('#refresh').click(function() {
+		show_spinners();
+		run_check({successCb: update_fields, errorCb: _errorCb, force: true});
+	});
 	show_spinners();
-	run_check({successCb: update_fields, errorCb: function(error, msg) { add_info(msg, 'errors'); }});
+	run_check({successCb: update_fields, errorCb: _errorCb});
 }
 
 
