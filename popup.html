@@ -7,6 +7,7 @@
 <html>
   <head>
     <title i18n="popupTitle"></title>
+    <link rel="stylesheet" type="text/css" href="./css/chrome-bootstrap.css">
     <script src="./js/jquery.min.js"></script>
     <script src="./js/helpers.js"></script>
     <script src="./js/common.js"></script>
@@ -16,6 +17,7 @@
       min-width: 400px;
       overflow-x: hidden;
       background: #cbd9de;
+      margin: 6px;
     }
 
     .ajax_info {
@@ -59,26 +61,26 @@
     </style>
   </head>
   <body>
-  <div class="header">
-    <span id="title" i18n="popupTitle"></span><span id="refresh" alt="Refresh" title="Refresh">&nbsp;&nbsp;&nbsp;</span>
-  </div>
-  <br />
-  <div id="content">
-    <table>
-      <tr>
-        <td><span class="info_field" i18n="dailyTraffic"></span>:</td>
-	<td><span id="traffic_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="MB"></span> / <span id="traffic_total" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="MB"></span> (<span id="traffic_left_percent" class="ajax_info"></span>%)</td>
-      </tr>
-      <tr>
-        <td><span class="info_field" i18n="voipCredit"></span>:</td>
-	<td><span id="voice_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="euros"></span>.</td>
-      </tr>
-    </table>
-  </div>
-  <br />
-  <div id="info"></div>
-  <div id="warnings"></div>
-  <div id="errors"></div>
+    <div class="header">
+      <span id="title" i18n="popupTitle"></span><span id="refresh" alt="Refresh" title="Refresh">&nbsp;&nbsp;&nbsp;</span>
+    </div>
+    <br />
+    <div id="content">
+      <table>
+        <tr>
+          <td><span class="info_field" i18n="dailyTraffic"></span>:</td>
+  	<td><span id="traffic_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="MB"></span> / <span id="traffic_total" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="MB"></span> (<span id="traffic_left_percent" class="ajax_info"></span>%)</td>
+        </tr>
+        <tr>
+          <td><span class="info_field" i18n="voipCredit"></span>:</td>
+  	<td><span id="voice_left" class="ajax_info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span i18n="euros"></span>.</td>
+        </tr>
+      </table>
+    </div>
+    <br />
+    <div id="info"></div>
+    <div id="warnings"></div>
+    <div id="errors"></div>
   </body>
 </html>
 
