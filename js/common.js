@@ -5,27 +5,33 @@
  * https://github.com/alberanid/chrome_eolo_extension
 */
 
-REMOTE_URL = 'https://care.ngi.it/ws/ws.asp';
-REMOTE_QUERY_ARGS = {a: 'get.quota'};
+var REMOTE_URL = 'https://care.ngi.it/ws/ws.asp';
+var REMOTE_QUERY_ARGS = {a: 'get.quota'};
 
-DEFAULT_LOW_DATA_PERCENT = 20;
-DEFAULT_LOW_VOICE_CREDIT = 5;
+var DEFAULT_LOW_DATA_PERCENT = 20;
+var DEFAULT_LOW_VOICE_CREDIT = 5;
 
-TWENTYFOUR_HOURS = 24 * 60; // in minutes.
+var TWENTYFOUR_HOURS = 24 * 60; // in minutes.
 
 var FORCE_REMOTE = false;
 var CHECK_INTERVAL = 10; // in minutes.
 var TEN_MINUTES_MS = 1000 * 60 * CHECK_INTERVAL;
 
+var _QUERY_RUNNING = false;
 
 /* Fetch remote data and call the appropriate callback. */
 function fetch_data(successCb, errorCb) {
+	if (_QUERY_RUNNING) {
+		return;
+	}
+	_QUERY_RUNNING = true;
 	$.ajax({
 		url: REMOTE_URL,
 		data: REMOTE_QUERY_ARGS,
 		dataType: 'json',
 		timeout: 10000,
 		success: function(data, textStatus, jqXHR) {
+			_QUERY_RUNNING = false;
 			if (data && data.response && data.response['status'] == 200) {
 				localStorage['last_check'] = new Date().getTime();
 				localStorage['last_data'] = JSON.stringify(data);
@@ -36,6 +42,7 @@ function fetch_data(successCb, errorCb) {
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
+			_QUERY_RUNNING = false;
 			errorCb && errorCb('networkError', chrome.i18n.getMessage("connectionError", [textStatus, errorThrown]));
 		}
 	});
