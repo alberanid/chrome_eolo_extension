@@ -8,8 +8,12 @@
     "description": "The description of the application, displayed in the web store"
   },
   "popupTitle": {
-    "message": "Eolo 10 quota",
+    "message": "Eolo 10 quotas",
     "description": "Title of the popup window"
+  },
+  "optionsTitle": {
+    "message": "Eolo 10 quotas - options",
+    "description": "Title of the options window"
   },
   "dailyTraffic": {
     "message": "Daily traffic",
@@ -36,7 +40,7 @@
     "description": "Warning shown when the user is over the daily quota"
   },
   "nearQuota": {
-    "message": "You are near your daily traffic quota",
+	  "message": "You are about to exceed your daily traffic quota",
     "description": "Warning shown when the user is near the daily quota"
   },
   "noVoipCredit": {
