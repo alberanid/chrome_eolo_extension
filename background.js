@@ -57,7 +57,7 @@ function at_alarm(alarm) {
 
 
 /* Initialize the alarms. */
-function at_boot(details) {
+function set_alarms(details) {
 	init_conf();
 	chrome.alarms.clearAll();
 	if (localStorage['backgroundCheck'] === "false") {
@@ -74,6 +74,6 @@ function at_boot(details) {
 }
 
 // it's better to not use jQuery, in the background page.
-document.addEventListener('DOMContentLoaded', at_boot);
-chrome.runtime.onInstalled.addListener(at_boot);
+document.addEventListener('DOMContentLoaded', set_alarms);
+chrome.runtime.onInstalled.addListener(set_alarms);
 

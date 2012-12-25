@@ -56,13 +56,13 @@ function save_settings() {
 	var checkFreq = $("#check-freq").val();
 	if (checkFreq == (checkFreq - 0) && checkFreq >= 10) {
 		localStorage['backgroundCheckInterval'] = checkFreq;
-		at_boot();
 	}
 	localStorage['nearQuotaNotify'] = $('#notify-traffic').attr('checked') ? "true" : "false";
 	localStorage['overQuotaNotify'] = $('#notify-no-traffic').attr('checked') ? "true" : "false";
 	localStorage['littleVoipCreditNotify'] = $('#notify-voip').attr('checked') ? "true" : "false";
 	localStorage['noVoipCreditNotify'] = $('#notify-no-voip').attr('checked') ? "true" : "false";
 	localStorage['backgroundCheck'] = $('#background-check').attr('checked') ? "true" : "false";
+	set_alarms();
 }
 
 
