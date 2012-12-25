@@ -8,15 +8,14 @@
 var REMOTE_URL = 'https://care.ngi.it/ws/ws.asp';
 var REMOTE_QUERY_ARGS = {a: 'get.quota'};
 
-var DEFAULT_LOW_DATA_PERCENT = 20;
+var DEFAULT_HIGH_DATA_PERCENT = 80;
 var DEFAULT_LOW_VOICE_CREDIT = 5;
+var DEFAULT_CHECK_INTERVAL = 10; // in minutes.
 
 var TWENTYFOUR_HOURS = 24 * 60; // in minutes.
 
 var FORCE_REMOTE = false;
-var CHECK_INTERVAL = 10; // in minutes.
-var TEN_MINUTES_MS = 1000 * 60 * CHECK_INTERVAL;
-
+var QUERY_TIMEOUT_MS = 10000;
 var _QUERY_RUNNING = false;
 
 /* Fetch remote data and call the appropriate callback. */
@@ -29,7 +28,7 @@ function fetch_data(successCb, errorCb) {
 		url: REMOTE_URL,
 		data: REMOTE_QUERY_ARGS,
 		dataType: 'json',
-		timeout: 10000,
+		timeout: QUERY_TIMEOUT_MS,
 		success: function(data, textStatus, jqXHR) {
 			_QUERY_RUNNING = false;
 			if (data && data.response && data.response['status'] == 200) {
@@ -57,7 +56,9 @@ function run_check(conf) {
 	var last_check = localStorage['last_check'];
 	var last_data = localStorage['last_data'];
 	var now = new Date().getTime();
-	if (last_check && (now - last_check < TEN_MINUTES_MS) && last_data &&
+	var checkInterval = localStorage['backgroundCheckInterval'] || DEFAULT_CHECK_INTERVAL;
+	checkInterval = checkInterval * 1000 * 60;
+	if (last_check && (now - last_check < checkInterval) && last_data &&
 			!(conf.force || FORCE_REMOTE)) {
 		conf.successCb && conf.successCb();
 		return;
@@ -68,16 +69,22 @@ function run_check(conf) {
 
 /* Reset notification flags. */
 function reset_flags(alarm) {
-	localStorage['overQuotaNotified'] = false;
-	localStorage['nearQuotaNotified'] = false;
-	localStorage['noVoipCreditNotified'] = false;
-	localStorage['littleVoipCreditNotified'] = false;
+	localStorage['overQuotaNotified'] = "false";
+	localStorage['nearQuotaNotified'] = "false";
+	localStorage['noVoipCreditNotified'] = "false";
+	localStorage['littleVoipCreditNotified'] = "false";
 }
 
 
 /* Initialize configuration. */
 function init_conf() {
-	localStorage['lowDataPercentQuota'] = localStorage['lowDataPercentQuota'] || DEFAULT_LOW_DATA_PERCENT;
+	localStorage['highDataPercentQuota'] = localStorage['highDataPercentQuota'] || DEFAULT_HIGH_DATA_PERCENT;
 	localStorage['lowVoiceCredit'] = localStorage['lowVoiceCredit'] || DEFAULT_LOW_VOICE_CREDIT;
+	localStorage['overQuotaNotify'] = localStorage['overQuotaNotify'] || "true";
+	localStorage['nearQuotaNotify'] = localStorage['nearQuotaNotify'] || "true";
+	localStorage['noVoipCreditNotify'] = localStorage['noVoipCreditNotify'] || "true";
+	localStorage['littleVoipCreditNotify'] = localStorage['littleVoipCreditNotify'] || "true";
+	localStorage['backgroundCheck'] = localStorage['backgroundCheck'] || "true";
+	localStorage['backgroundCheckInterval'] = localStorage['backgroundCheckInterval'] || DEFAULT_CHECK_INTERVAL;
 }
 

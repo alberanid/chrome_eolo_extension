@@ -88,7 +88,7 @@ function update_messages(t_percent, v_left, success) {
 	}
 	else if (t_percent >= 100) {
 		add_info(chrome.i18n.getMessage("overQuota"), 'warnings');
-	} else if (t_percent > (100 - localStorage['lowDataPercentQuota'])) {
+	} else if (t_percent > localStorage['highDataPercentQuota']) {
 		add_info(chrome.i18n.getMessage("nearQuota"), 'warnings');
 	}
 	if (v_left === null) {

@@ -16,6 +16,7 @@
     "page": "background.html",
     "persistent": true
   },
+  "options_page": "options.html",
   "permissions": [
     "alarms",
     "background",
