@@ -50,6 +50,29 @@
       "textStatus": {"content": "$1", "example": "Server error"},
       "errorThrown": {"content": "$2", "example": "[Object]"}
     }
+  },
+  "optNotifyTraffic": {
+    "message": "Notifica quando il traffico usato supera la soglia di"
+  },
+  "optNotifyNoTraffic": {
+    "message": "Notifica quando tutto il traffico è stato usato"
+  },
+  "optNotifyLowVoIPCredit": {
+    "message": "Notifica quando il credito VoIP disponibile è inferiore a"
+  },
+  "optNotifyNoVoIPCredit": {
+    "message": "Notifica quando non si ha più credito VoIP"
+  },
+  "optBackgroundCheck": {
+    "message": "Controllo periodico ogni"
+  },
+  "minutes": {
+    "message": "minuti"
+  },
+  "enterConfirm": {
+    "message": "Premere invio per confermare"
+  },
+  "Refresh": {
+    "message": "Ricarica"
   }
-
 }

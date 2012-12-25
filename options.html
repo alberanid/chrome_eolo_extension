@@ -34,7 +34,7 @@
     <table cols="3">
       <tr>
         <td><input type="checkbox" id="notify-traffic" class="conf" />
-        <td class="setting notify-traffic">Notify when used traffic is above</td>
+	<td class="setting notify-traffic"><span i18n="optNotifyTraffic"></span></td>
 	<td class="setting notify-traffic">
 	  <select id="traffic-quota" name="traffic-quota" class="conf">
 	    <option value="95">95%</option>
@@ -61,26 +61,26 @@
       </tr>
       <tr>
         <td><input type="checkbox" id="notify-no-traffic" class="conf" />
-        <td class="setting notify-no-traffic">Notify when all the traffic was used</td>
+	<td class="setting notify-no-traffic"><span i18n="optNotifyNoTraffic"></span></td>
         <td class="setting notify-no-traffic"></td>
       </tr>
       <tr>
         <td><input type="checkbox" id="notify-voip" class="conf" />
-	<td class="setting notify-voip">Notify when VoIP credit drops below</td>
+	<td class="setting notify-voip"><span i18n="optNotifyLowVoIPCredit"></span></td>
 	<td class="setting notify-voip">
-	  <input id="voip-quota" name="voip-quota" type="number" size="6" maxlength="6" min="0.00" max="999.99" step="1" class="conf" title="Press enter to confirm" />&nbsp;euros
+	  <input id="voip-quota" name="voip-quota" type="number" size="6" maxlength="6" min="0.00" max="999.99" step="1" class="conf" i18n_title="enterConfirm" />&nbsp;<span i18n="euros"></span>
 	</td>
       </tr>
       <tr>
         <td><input type="checkbox" id="notify-no-voip" class="conf" />
-        <td class="setting notify-no-voip">Notify when no VoIP credit is left</td>
+	<td class="setting notify-no-voip"><span i18n="optNotifyNoVoIPCredit"></span></td>
         <td class="setting notify-no-voip"></td>
       </tr>
       <tr>
         <td><input type="checkbox" id="background-check" class="conf" />
-        <td class="setting background-check">Background check every</td>
+	<td class="setting background-check"><span i18n="optBackgroundCheck"></span></td>
 	<td class="setting background-check">
-	  <input id="check-freq" name="check-freq" type="number" size="3" manlength="3" min="10" max="1440" step="1" class="conf" title="Press enter to confirm" />&nbsp;minutes
+	  <input id="check-freq" name="check-freq" type="number" size="3" manlength="3" min="10" max="1440" step="1" class="conf" i18n_title="enterConfirm" />&nbsp;<span i18n="minutes"></span>
 	</td>
       </tr>
     </table>

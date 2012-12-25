@@ -65,5 +65,37 @@
       "textStatus": {"content": "$1", "example": "Server error"},
       "errorThrown": {"content": "$2", "example": "[Object]"}
     }
+  },
+  "minutes": {
+    "message": "minutes",
+    "description": "Time unit"
+  },
+  "optNotifyTraffic": {
+    "message": "Notify when used traffic is above",
+    "description": "Option label for traffic quota"
+  },
+  "optNotifyNoTraffic": {
+    "message": "Notify when all the traffic was used",
+    "description": "Option label for no traffic left"
+  },
+  "optNotifyLowVoIPCredit": {
+    "message": "Notify when VoIP credit drops below",
+    "description": "Option label for VoIP credit"
+  },
+  "optNotifyNoVoIPCredit": {
+    "message": "Notify when no VoIP credit is left",
+    "description": "Option label for no VoIP credit"
+  },
+  "optBackgroundCheck": {
+    "message": "Background check every",
+    "description": "Option label for background check interval"
+  },
+  "enterConfirm": {
+    "message": "Press enter to confirm",
+    "description": "Title of the text inputs"
+  },
+  "Refresh": {
+    "message": "Refresh",
+    "description": "Title of the Refresh button"
   }
 }
