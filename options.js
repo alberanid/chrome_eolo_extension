@@ -1,3 +1,9 @@
+/*
+ * Copyright 2012 - Davide Alberani <da@erlug.linux.it>
+ * Released under the terms of GNU GPL 3 or later.
+ *
+ * https://github.com/alberanid/chrome_eolo_extension
+*/
 
 /* Load settings and show the options. */
 function load_settings() {

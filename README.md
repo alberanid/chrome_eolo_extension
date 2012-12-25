@@ -28,6 +28,7 @@ The code is covered by the GPL 3 or later license.
 The pictures and icons are covered by a by-sa/3.0 creative commons license.
 
 Third-party software included:
-  jQuery: http://jquery.com/
-  Chrome UI bootstrap: https://github.com/roykolak/chrome-bootstrap
+  - jQuery: http://jquery.com/
+  - Chrome UI bootstrap: https://github.com/roykolak/chrome-bootstrap
+  - localizePage: http://code.google.com/p/adblockforchrome/source/browse/trunk/functions.js
 

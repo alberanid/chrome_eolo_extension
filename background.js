@@ -7,10 +7,10 @@
 
 /* Show a notification, if not already done. */
 function show_notification(msg, msg_type) {
-	if (localStorage[msg_type + 'Notified'] === 'true') {
+	if (localStorage[msg_type + 'Notified'] === 'true' || localStorage[msg_type + 'Notify'] === "false") {
 		return;
 	}
-	localStorage[msg_type + 'Notified'] = true;
+	localStorage[msg_type + 'Notified'] = "true";
 	var notification = webkitNotifications.createNotification(
 			'images/icon48.png',
 			chrome.i18n.getMessage('appName'),
@@ -60,6 +60,9 @@ function at_alarm(alarm) {
 function at_boot(details) {
 	init_conf();
 	chrome.alarms.clearAll();
+	if (localStorage['backgroundCheck'] === "false") {
+		return;
+	}
 	var checkInterval = localStorage['backgroundCheckInterval'] || DEFAULT_CHECK_INTERVAL;
 	checkInterval = checkInterval - 0; // ensure it's an integer.
 	chrome.alarms.create('eoloAlarm', {delayInMinutes: 5, periodInMinutes: checkInterval});
