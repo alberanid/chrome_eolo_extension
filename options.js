@@ -22,7 +22,7 @@ function load_settings() {
 	var bc = $('#background-check');
 	bc.attr('checked', localStorage['backgroundCheck'] !== "false");
 	toggle_options(bc);
-	var lowVoiceCredit = localStorage['lowVoiceCredit'] || DEFAULT_HIGH_VOICE_CREDIT;
+	var lowVoiceCredit = localStorage['lowVoiceCredit'] || DEFAULT_LOW_VOICE_CREDIT;
 	if (lowVoiceCredit) {
 		$("#voip-quota").val(lowVoiceCredit);
 	}
