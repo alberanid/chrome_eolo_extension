@@ -67,14 +67,6 @@ function run_check(conf) {
 }
 
 
-/* Reset notification flags. */
-function reset_flags(alarm) {
-	localStorage['overQuotaNotified'] = "false";
-	localStorage['nearQuotaNotified'] = "false";
-	localStorage['noVoipCreditNotified'] = "false";
-	localStorage['littleVoipCreditNotified'] = "false";
-}
-
 
 /* Initialize configuration. */
 function init_conf() {
