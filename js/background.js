@@ -63,5 +63,3 @@ function set_alarms(details) {
 	chrome.alarms.create('atMidnight', {when: midnight.getTime(), periodInMinutes: TWENTYFOUR_HOURS});
 }
 
-
-

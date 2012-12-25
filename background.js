@@ -25,6 +25,9 @@ function reset_flags(alarm) {
 
 /* Initialize event linsteners. */
 function set_listeners() {
+	// FIXME: find a better way to handle values initialization and notifications.
+	set_alarms();
+	reset_flags({"name": "atMidnight"});
 	chrome.alarms.onAlarm.addListener(at_alarm);
 	chrome.alarms.onAlarm.addListener(reset_flags);
 }
