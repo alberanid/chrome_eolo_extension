@@ -73,7 +73,3 @@ function set_alarms(details) {
 	chrome.alarms.onAlarm.addListener(reset_flags);
 }
 
-// it's better to not use jQuery, in the background page.
-document.addEventListener('DOMContentLoaded', set_alarms);
-chrome.runtime.onInstalled.addListener(set_alarms);
-
