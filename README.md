@@ -1,9 +1,9 @@
 NGI Eolo 10 quotas
 ==================
 
-This unofficial Chrome extension allow NGI Eolo 10 users to monitor their traffic and VoIP quotas.
+This unofficial Chrome extension allows NGI Eolo 10 users to monitor their traffic and VoIP quotas.
 
-It's available on the Chrome store: https://chrome.google.com/webstore/detail/ngi-eolo-10-quotas/bnanndnbkeednbkmmpceidkphbcmkomn
+It's available on the Chrome store at https://chrome.google.com/webstore/detail/ngi-eolo-10-quotas/bnanndnbkeednbkmmpceidkphbcmkomn
 
 
 TODO and Development
