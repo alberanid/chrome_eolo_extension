@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 - Davide Alberani <da@erlug.linux.it>
+ * Copyright 2012-2013 - Davide Alberani <da@erlug.linux.it>
  * Released under the terms of GNU GPL 3 or later.
  *
  * https://github.com/alberanid/chrome_eolo_extension
@@ -103,7 +103,10 @@ function update_messages(t_percent, v_left, success) {
 /* Things to do when the popup is shown. */
 function open_popup() {
 	localizePage();
-	var _errorCb = function(error, msg) { add_info(msg, 'errors'); };
+	var _errorCb = function(error, msg) {
+		update_fields();
+		add_info(msg, 'errors');
+	};
 	$('#refresh').click(function() {
 		show_spinners();
 		run_check({successCb: update_fields, errorCb: _errorCb, force: true});
