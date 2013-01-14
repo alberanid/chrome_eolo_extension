@@ -18,6 +18,16 @@ var FORCE_REMOTE = false;
 var QUERY_TIMEOUT_MS = 10000;
 var _QUERY_RUNNING = false;
 
+
+/* Reset notification flags. */
+function reset_flags() {
+	localStorage['overQuotaNotified'] = "false";
+	localStorage['nearQuotaNotified'] = "false";
+	localStorage['noVoipCreditNotified'] = "false";
+	localStorage['littleVoipCreditNotified'] = "false";
+}
+
+
 /* Fetch remote data and call the appropriate callback. */
 function fetch_data(successCb, errorCb) {
 	if (_QUERY_RUNNING) {
@@ -32,7 +42,21 @@ function fetch_data(successCb, errorCb) {
 		success: function(data, textStatus, jqXHR) {
 			_QUERY_RUNNING = false;
 			if (data && data.response && data.response['status'] == 200) {
-				localStorage['last_check'] = new Date().getTime();
+				var now = new Date();
+				// Reset the notification flags if we're no longer in the same
+				// day of the last notification.
+				try {
+					if (localStorage.last_check) {
+						var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+						var sdate = new Date(parseInt(localStorage.last_check, 10));
+						var storedDay = new Date(sdate.getFullYear(), sdate.getMonth(), sdate.getDate());
+						if (today.getTime() !== storedDay.getTime()) {
+							reset_flags();
+						}
+					}
+				} catch(err) {
+				}
+				localStorage['last_check'] = now.getTime();
 				localStorage['last_data'] = JSON.stringify(data);
 				successCb && successCb(data);
 			} else {

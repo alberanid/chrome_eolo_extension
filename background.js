@@ -13,23 +13,11 @@ function at_alarm(alarm) {
 }
 
 
-/* Reset notification flags. */
-function reset_flags(alarm) {
-	if (alarm.name != 'atMidnight') { return; }
-	localStorage['overQuotaNotified'] = "false";
-	localStorage['nearQuotaNotified'] = "false";
-	localStorage['noVoipCreditNotified'] = "false";
-	localStorage['littleVoipCreditNotified'] = "false";
-}
-
-
 /* Initialize event linsteners. */
 function set_listeners() {
-	// FIXME: find a better way to handle values initialization and notifications.
 	set_alarms();
-	reset_flags({"name": "atMidnight"});
+	reset_flags();
 	chrome.alarms.onAlarm.addListener(at_alarm);
-	chrome.alarms.onAlarm.addListener(reset_flags);
 }
 
 

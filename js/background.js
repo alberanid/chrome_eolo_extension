@@ -57,9 +57,7 @@ function set_alarms(details) {
 	}
 	var checkInterval = localStorage['backgroundCheckInterval'] || DEFAULT_CHECK_INTERVAL;
 	checkInterval = checkInterval - 0; // ensure it's an integer.
+	// XXX: at least 5 minutes (undocumented limit).
 	chrome.alarms.create('eoloAlarm', {delayInMinutes: 5, periodInMinutes: checkInterval});
-	var current_date = new Date();
-	var midnight = new Date(current_date.getFullYear(), current_date.getMonth(), current_date.getDate()+1, 0, 0, 0);
-	chrome.alarms.create('atMidnight', {when: midnight.getTime(), periodInMinutes: TWENTYFOUR_HOURS});
 }
 
