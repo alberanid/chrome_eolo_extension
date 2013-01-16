@@ -19,6 +19,7 @@ Davide Alberani <da@erlug.linux.it> (C) 2012-2013
 http://www.mimante.net/
 
 The author is in no way affiliated with NGI.
+The official (flash/air-based) EOLO10app is available at: https://github.com/EOLOlab/EOLO10app
 
 
 License
