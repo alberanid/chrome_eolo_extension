@@ -33,3 +33,9 @@ Third-party software included:
   - Chrome UI bootstrap: https://github.com/roykolak/chrome-bootstrap
   - localizePage: http://code.google.com/p/adblockforchrome/source/browse/trunk/functions.js
 
+
+Other Versions
+==============
+
+Francesco Zerbinati (@zerbfra) http://www.zerbinatifrancesco.it developed a similar extension for **Safari**: https://github.com/zerbfra/safari-eolo-extension
+
