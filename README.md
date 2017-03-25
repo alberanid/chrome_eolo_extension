@@ -8,7 +8,7 @@ It's available on the Chrome store at https://chrome.google.com/webstore/detail/
 IMPORTANT NOTICE
 ================
 
-**Since I'm no longer a NGI Eolo customer, I'm no longer maintaning this extension.  If anyone find it useful, please fork it and continue the development.**
+**Since I'm no longer a NGI Eolo customer, I'm no longer maintaining this extension.  If anyone find it useful, please fork it and continue the development.**
 
 
 TODO and Development
