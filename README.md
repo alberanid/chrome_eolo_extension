@@ -5,6 +5,11 @@ This unofficial Chrome extension allows NGI Eolo 10 users to monitor their traff
 
 It's available on the Chrome store at https://chrome.google.com/webstore/detail/ngi-eolo-10-quotas/bnanndnbkeednbkmmpceidkphbcmkomn
 
+IMPORTANT NOTICE
+================
+
+**Since I'm no longer a NGI Eolo customer, I'm no longer maintaning this extension.  If anyone find it useful, please fork it and continue the development.**
+
 
 TODO and Development
 ====================
